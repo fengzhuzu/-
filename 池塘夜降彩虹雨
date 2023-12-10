@@ -1,0 +1,103 @@
+import pygame
+import time
+import datetime as dt
+import random
+class my_timer:#定时器，整个系统的时间都由定时器确定。
+    def __init__(self , mumber):
+        self.start_time = [time.perf_counter() for i in range(mumber)]
+        #time.sleep(1)
+        pass
+    def timer(self,number , times_ms):
+        tim_1 = time.perf_counter()
+        times_ms = times_ms/1000
+        if (tim_1 - self.start_time[number] >= times_ms):
+            self.start_time[number] = tim_1
+            return True
+        return False
+
+class raindrop:
+    def __init__(self):
+        pass
+    def creat_rain(self):
+        pass
+    def move_rain(self):
+        pass
+    def destory_rain(self):
+        pass
+
+
+class thunder:
+    def __init__(self):
+        pass
+class picture:
+    backdrop_pic = pygame.image.load(".\Img/荷塘.png")
+    WIDTH,HEIGHT = [backdrop_pic.get_width(),backdrop_pic.get_height()]
+
+    def __init__(self):
+        self.screen = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
+        pygame.display.set_caption('池塘夜降彩虹雨')
+        pass
+    def rain(self,x1,y1,x2,y2,width):
+        pygame.draw.line(self.screen , (255,0,0),(x1,y1),(x2,y2))
+        pass
+    def thunder(self):
+        pass
+    def screen_updata(self):
+        self.screen.blit(self.backdrop_pic,(0,0))#刷新背景图
+
+        pygame.display.flip()  # 可以理解为执行刷新。
+        #self.screen.blit(fps_Image,(100,100))#将文字图片贴到screen上
+    def data_updata(self):
+        pass
+class voice:
+    def __init__(self):
+        pass
+
+class running:
+    def __init__(self):
+        pic = picture()
+        t = my_timer(mumber=64)
+        pass
+    def updata(self):
+        if(t.timer(0,13)):
+            #13ms刷新一次
+            pic.screen_updata()
+            pic.data_updata()
+        pass
+
+
+pygame.init()
+
+WIDTH =  1000
+HEIGHT = 800
+t = my_timer(mumber = 64)
+
+# = pygame.display.set_mode((WIDTH,HEIGHT))
+
+#
+# GREEN = ( 0 , 255 , 0)
+# WHITE = ( 255 , 255 , 255)
+running = True
+
+FPS = 0
+pic = picture()
+
+my_font = pygame.font.Font(None,60)
+fps_Image = my_font.render('60',True,WHITE)
+while running:
+    if(t.timer(number = 1 , times_ms=1000)):
+        text_Image = my_font.render(str(FPS), True, WHITE)
+        FPS = 0
+    if(t.timer(number = 0 , times_ms=16)):
+        FPS += 1
+        for event in pygame.event.get():#事件处理，点击和键盘之类的。
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill(GREEN )
+        print(FPS)
+        screen.blit(pic.get_backdrop(),(0,0))
+        screen.blit(fps_Image,(100,100))#将文字图片贴到screen上
+
+        #all_sprites.draw(screen)
+        pygame.display.flip()#可以理解为执行刷新。
+        pass
